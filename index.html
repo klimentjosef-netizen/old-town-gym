@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Private Gym Ostrava — Business Plan & CFO</title>
+  <title>Old Town Gym — Business Plan & CFO</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -146,10 +147,25 @@
       .segment-grid { grid-template-columns: 1fr; }
       .key-numbers { grid-template-columns: repeat(2, 1fr); }
     }
+    /* Logo & Header */
+    .logo-header { display: flex; align-items: center; gap: 16px; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--color-border-tertiary); }
+    .logo-mark { width: 56px; height: 56px; border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; }
+    .logo-mark::before { content: ''; position: absolute; inset: 3px; border: 1px solid var(--gold-dim); border-radius: 50%; }
+    .logo-inner { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 20px; color: var(--gold); letter-spacing: 0.02em; line-height: 1; }
+    .logo-text { display: flex; flex-direction: column; }
+    .logo-name { font-family: 'Playfair Display', serif; font-weight: 800; font-size: 22px; color: var(--gold); letter-spacing: 0.06em; text-transform: uppercase; }
+    .logo-tagline { font-size: 11px; color: var(--color-text-secondary); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 2px; }
   </style>
 </head>
 <body>
 <div class="app">
+  <div class="logo-header">
+    <div class="logo-mark"><span class="logo-inner">OT</span></div>
+    <div class="logo-text">
+      <div class="logo-name">Old Town Gym</div>
+      <div class="logo-tagline">Private Fitness &middot; Ostrava Centrum</div>
+    </div>
+  </div>
   <div class="tabs">
     <button class="tab" onclick="switchTab('plan')">Business Pl&aacute;n</button>
     <button class="tab active" onclick="switchTab('cashflow')">Cashflow model</button>
@@ -162,12 +178,12 @@
   <!-- BUSINESS PLAN TAB -->
   <div class="section" id="tab-plan">
     <div style="margin-bottom: 1.5rem;">
-      <div class="doc-h1">PRIVATE GYM OSTRAVA</div>
+      <div class="doc-h1">OLD TOWN GYM</div>
       <div class="doc-sub">Luxury fitness v centru Ostravy &mdash; Business Pl&aacute;n &middot; Obchodn&iacute; strategie &middot; Pr&aacute;vn&iacute; struktura &middot; Cashflow model &middot; Cenotvorba<br>Verze 1.1 &mdash; Intern&iacute; n&aacute;vrh &nbsp;|&nbsp; 2025 &nbsp;|&nbsp; Centrum Ostravy &nbsp;|&nbsp; Firma: New Town a Gold Town s.r.o.</div>
     </div>
     <div class="card">
       <div class="doc-h2">1. Executive Summary</div>
-      <div class="doc-p">Projekt Private Gym Ostrava je z&aacute;m&ecaron;r prom&ecaron;nit prostor 80&ndash;100 m&sup2; v centru Ostravy na <strong>priv&aacute;tn&iacute; luxury fitness centrum</strong> s omezen&yacute;m po&ccaron;tem &ccaron;len&ucirc;, p&rcaron;&iacute;stupem 6:00&ndash;22:00 a blokov&yacute;m pron&aacute;jmem prostoru extern&iacute;m tren&eacute;r&ucirc;m.</div>
+      <div class="doc-p">Projekt Old Town Gym je z&aacute;m&ecaron;r prom&ecaron;nit prostor 80&ndash;100 m&sup2; v centru Ostravy na <strong>priv&aacute;tn&iacute; luxury fitness centrum</strong> s omezen&yacute;m po&ccaron;tem &ccaron;len&ucirc;, p&rcaron;&iacute;stupem 6:00&ndash;22:00 a blokov&yacute;m pron&aacute;jmem prostoru extern&iacute;m tren&eacute;r&ucirc;m.</div>
       <div class="doc-p">Jde o <strong>&ccaron;lensk&yacute; klub, ne o klasick&eacute; fitko</strong>. Omezen&yacute; po&ccaron;et &ccaron;len&ucirc; (hard cap 50), &zcaron;&aacute;dn&eacute; fronty, soukrom&eacute; prost&rcaron;ed&iacute;, pr&eacute;miov&eacute; vybaven&iacute;.</div>
       <div class="key-numbers">
         <div class="key-num"><div class="key-num-val">1,4M K&ccaron;</div><div class="key-num-label">Celkov&yacute; rozpo&ccaron;et</div></div>
@@ -180,9 +196,9 @@
     <div class="card">
       <div class="doc-h2">2. Obchodn&iacute; strategie</div>
       <div class="doc-h3">2.1 Positioning</div>
-      <div class="doc-p">Private Gym Ostrava <strong>nen&iacute; fitko</strong>. Je to &ccaron;lensk&yacute; sportovn&iacute; klub s omezen&yacute;m p&rcaron;&iacute;stupem.</div>
+      <div class="doc-p">Old Town Gym <strong>nen&iacute; fitko</strong>. Je to &ccaron;lensk&yacute; sportovn&iacute; klub s omezen&yacute;m p&rcaron;&iacute;stupem.</div>
       <table class="tbl">
-        <tr><th>Krit&eacute;rium</th><th>Klasick&eacute; fitko</th><th>Private Gym (n&aacute;&scaron; p&rcaron;&iacute;stup)</th></tr>
+        <tr><th>Krit&eacute;rium</th><th>Klasick&eacute; fitko</th><th>Old Town Gym (n&aacute;&scaron; p&rcaron;&iacute;stup)</th></tr>
         <tr><td>Po&ccaron;et &ccaron;len&ucirc;</td><td>Neomezen&yacute;</td><td class="pos">Hard cap &mdash; max 50</td></tr>
         <tr><td>Kapacita ve &scaron;pi&ccaron;ce</td><td>Fronty</td><td class="pos">V&zcaron;dy prostor pro sebe</td></tr>
         <tr><td>Z&aacute;kazn&iacute;k</td><td>Anonymn&iacute;</td><td class="pos">Osobn&iacute; onboarding</td></tr>
