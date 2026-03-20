@@ -597,35 +597,87 @@ const DEFAULT_TIERS = [
 ];
 let tiers = JSON.parse(JSON.stringify(DEFAULT_TIERS));
 
-function saveTiers() {
-  localStorage.setItem('gym-tiers', JSON.stringify(tiers));
+// === CLOUD SYNC (jsonblob.com) ===
+const BLOB_ID = '019d0b41-737c-7cde-8e4a-55dbe4d04a95';
+const BLOB_URL = 'https://jsonblob.com/api/jsonBlob/' + BLOB_ID;
+let _saveTimeout = null;
+
+function saveToCloud() {
+  // Debounce: wait 500ms after last change before saving
+  clearTimeout(_saveTimeout);
+  _saveTimeout = setTimeout(() => {
+    const payload = {
+      tiers: tiers,
+      extras: {
+        rentalH: document.getElementById('rental-h').value,
+        rentalP: document.getElementById('rental-price').value,
+        dropinQ: document.getElementById('dropin').value,
+        dropinP: document.getElementById('dropin-price').value,
+      },
+      cfo: typeof cfoData !== 'undefined' ? cfoData : {},
+      savedAt: new Date().toISOString(),
+    };
+    // Save to localStorage as cache
+    localStorage.setItem('gym-cloud-cache', JSON.stringify(payload));
+    // Save to cloud
+    fetch(BLOB_URL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }).catch(() => {});
+  }, 500);
 }
-function loadTiers() {
-  try {
-    const d = JSON.parse(localStorage.getItem('gym-tiers'));
-    if (d && Array.isArray(d) && d.length > 0) tiers = d;
-  } catch(e) {}
+
+function loadFromCloud() {
+  return fetch(BLOB_URL)
+    .then(r => r.json())
+    .then(data => {
+      if (data && data.tiers && Array.isArray(data.tiers) && data.tiers.length > 0) {
+        applyCloudData(data);
+      }
+    })
+    .catch(() => {
+      // Fallback: try localStorage cache
+      try {
+        const cached = JSON.parse(localStorage.getItem('gym-cloud-cache'));
+        if (cached && cached.tiers) applyCloudData(cached);
+      } catch(e) {}
+    });
 }
-function saveExtras() {
-  const data = {
-    rentalH: document.getElementById('rental-h').value,
-    rentalP: document.getElementById('rental-price').value,
-    dropinQ: document.getElementById('dropin').value,
-    dropinP: document.getElementById('dropin-price').value,
-  };
-  localStorage.setItem('gym-extras', JSON.stringify(data));
+
+function applyCloudData(data) {
+  // Tiers
+  if (data.tiers && Array.isArray(data.tiers) && data.tiers.length > 0) tiers = data.tiers;
+  // Extras
+  if (data.extras) {
+    const e = data.extras;
+    if (e.rentalH !== undefined) document.getElementById('rental-h').value = e.rentalH;
+    if (e.rentalP !== undefined) document.getElementById('rental-price').value = e.rentalP;
+    if (e.dropinQ !== undefined) document.getElementById('dropin').value = e.dropinQ;
+    if (e.dropinP !== undefined) document.getElementById('dropin-price').value = e.dropinP;
+  }
+  // CFO
+  if (data.cfo && data.cfo.capex) {
+    cfoData = data.cfo;
+  }
+  // Re-render everything
+  renderTiers();
+  updateModel();
+  renderCfoRows('capex');
+  renderCfoRows('ops-rev');
+  renderCfoRows('ops-cost');
+  const rd = document.getElementById('reserve-drawn');
+  const ml = document.getElementById('monthly-loss');
+  if (rd && cfoData.reserveDrawn) rd.value = cfoData.reserveDrawn;
+  if (ml && cfoData.monthlyLoss) ml.value = cfoData.monthlyLoss;
+  updateCFO();
 }
-function loadExtras() {
-  try {
-    const d = JSON.parse(localStorage.getItem('gym-extras'));
-    if (d) {
-      if (d.rentalH !== undefined) document.getElementById('rental-h').value = d.rentalH;
-      if (d.rentalP !== undefined) document.getElementById('rental-price').value = d.rentalP;
-      if (d.dropinQ !== undefined) document.getElementById('dropin').value = d.dropinQ;
-      if (d.dropinP !== undefined) document.getElementById('dropin-price').value = d.dropinP;
-    }
-  } catch(e) {}
-}
+
+// Aliases for backward compatibility
+function saveTiers() { saveToCloud(); }
+function saveExtras() { saveToCloud(); }
+function loadTiers() {}
+function loadExtras() {}
 
 function renderTiers() {
   const c = document.getElementById('tier-container');
@@ -868,22 +920,14 @@ function addCfoRow(section) {
 }
 
 function saveCFO() {
-  localStorage.setItem('gym-cfo-v2', JSON.stringify(cfoData));
+  saveToCloud();
 }
 
 function loadCFO() {
-  try {
-    const d = JSON.parse(localStorage.getItem('gym-cfo-v2'));
-    if (d && d.capex) cfoData = d;
-  } catch (e) {}
+  // Handled by loadFromCloud
   renderCfoRows('capex');
   renderCfoRows('ops-rev');
   renderCfoRows('ops-cost');
-  // Load scalar fields
-  const rd = document.getElementById('reserve-drawn');
-  const ml = document.getElementById('monthly-loss');
-  if (rd) rd.value = cfoData.reserveDrawn || 0;
-  if (ml) ml.value = cfoData.monthlyLoss || 0;
   updateCFO();
 }
 
@@ -1034,12 +1078,12 @@ function switchTab(name) {
 })();
 
 // === INIT ===
-loadTiers();
 renderTiers();
-loadExtras();
 updateModel();
 buildQuestions();
 loadCFO();
+// Load cloud data (overwrites defaults if data exists)
+loadFromCloud();
 </script>
 </body>
 </html>
