@@ -595,8 +595,6 @@ const DEFAULT_TIERS = [
     'Instagram mention 1\u00d7 m\u011bs\u00ed\u010dn\u011b',
   ]},
 ];
-// Clear old tier data to force new defaults
-localStorage.removeItem('gym-tiers');
 let tiers = JSON.parse(JSON.stringify(DEFAULT_TIERS));
 
 function saveTiers() {
