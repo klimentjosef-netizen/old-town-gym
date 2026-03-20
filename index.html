@@ -156,65 +156,87 @@
     .logo-tagline { font-size: 11px; color: var(--color-text-secondary); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 4px; }
     .logo-divider { width: 1px; height: 48px; background: var(--color-border-secondary); flex-shrink: 0; }
     .logo-mascot-label { font-size: 9px; color: var(--gold-dim); letter-spacing: 0.12em; text-transform: uppercase; text-align: center; margin-top: 2px; }
+    /* Running gorilla */
+    .gorilla { position: fixed; bottom: 0; width: 60px; height: 60px; z-index: 9999; pointer-events: none; transition: none; }
+    .gorilla.running { animation: gorilla-bounce 0.3s steps(2) infinite; }
+    .gorilla.flipped svg { transform: scaleX(-1); }
+    .gorilla.pushup { animation: gorilla-pushup 0.6s ease-in-out infinite; }
+    @keyframes gorilla-bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes gorilla-pushup { 0%,100% { transform: scaleY(1); } 50% { transform: scaleY(0.7) translateY(8px); } }
   </style>
 </head>
 <body>
 <div class="app">
   <div class="logo-header">
     <div class="logo-svg">
-      <svg width="72" height="72" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Hexagonal frame -->
-        <polygon points="50,3 93,27 93,73 50,97 7,73 7,27" stroke="#c9a96e" stroke-width="2" fill="none"/>
-        <polygon points="50,8 89,29.5 89,70.5 50,92 11,70.5 11,29.5" stroke="#a08440" stroke-width="0.5" fill="none"/>
-        <!-- Gorilla upper body silhouette - powerful muscular pose -->
-        <g fill="#c9a96e">
-          <!-- Trapezius / shoulders - massive -->
-          <path d="M50 22C44 22 38 24 34 28C30 32 26 34 22 36C20 37 18 39 18 42C18 45 20 47 23 47L28 46C30 45 32 44 33 42L35 38C36 36 38 35 40 35L60 35C62 35 64 36 65 38L67 42C68 44 70 45 72 46L77 47C80 47 82 45 82 42C82 39 80 37 78 36C74 34 70 32 66 28C62 24 56 22 50 22Z"/>
-          <!-- Head -->
-          <path d="M50 18C43 18 38 22 38 27C38 29 39 31 40 32C41 33 43 34 45 34.5C46 35 48 35.5 50 35.5C52 35.5 54 35 55 34.5C57 34 59 33 60 32C61 31 62 29 62 27C62 22 57 18 50 18Z"/>
-          <!-- Brow ridge - heavy, powerful -->
-          <rect x="39" y="24" width="22" height="3" rx="1.5" fill="#a08440"/>
-          <!-- Eyes - intense, small -->
-          <ellipse cx="44" cy="27" rx="1.5" ry="1" fill="#0a0a0a"/>
-          <ellipse cx="56" cy="27" rx="1.5" ry="1" fill="#0a0a0a"/>
-          <!-- Nose/mouth area -->
-          <ellipse cx="50" cy="31" rx="4" ry="2.5" fill="#a08440"/>
-          <ellipse cx="48.5" cy="30.5" rx="0.8" ry="0.6" fill="#0a0a0a"/>
-          <ellipse cx="51.5" cy="30.5" rx="0.8" ry="0.6" fill="#0a0a0a"/>
-          <!-- Chest / pecs - defined split -->
-          <path d="M38 42C38 42 40 40 44 39L49 38.5L49 50L41 48C39 47 38 45 38 42Z"/>
-          <path d="M62 42C62 42 60 40 56 39L51 38.5L51 50L59 48C61 47 62 45 62 42Z"/>
-          <!-- Abs hint - center line -->
-          <line x1="50" y1="50" x2="50" y2="62" stroke="#a08440" stroke-width="0.8"/>
-          <!-- Left bicep - bulging -->
-          <path d="M33 42C31 44 28 46 27 49C26 52 27 55 29 57C31 59 34 58 35 56C36 54 37 51 37 48C37 45 36 43 35 42Z"/>
-          <!-- Right bicep - bulging -->
-          <path d="M67 42C69 44 72 46 73 49C74 52 73 55 71 57C69 59 66 58 65 56C64 54 63 51 63 48C63 45 64 43 65 42Z"/>
-          <!-- Left forearm + fist holding dumbbell -->
-          <path d="M29 57C28 59 26 62 25 64C24 66 25 67 27 67L31 67C33 67 34 66 34 64C34 62 33 60 32 58Z"/>
-          <!-- Right forearm + fist -->
-          <path d="M71 57C72 59 74 62 75 64C76 66 75 67 73 67L69 67C67 67 66 66 66 64C66 62 67 60 68 58Z"/>
+      <svg width="72" height="82" viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Shield shape -->
+        <path d="M50 2L95 20V62C95 82 75 100 50 112C25 100 5 82 5 62V20L50 2Z" stroke="#c9a96e" stroke-width="2.5" fill="none"/>
+        <path d="M50 8L90 23V62C90 79 72 95 50 106C28 95 10 79 10 62V23L50 8Z" stroke="#a08440" stroke-width="0.7" fill="none"/>
+        <!-- Top banner: OLD TOWN -->
+        <text x="50" y="30" text-anchor="middle" font-family="'Playfair Display',serif" font-weight="800" font-size="13" fill="#c9a96e" letter-spacing="3">OLD TOWN</text>
+        <!-- Kettlebell icon - center -->
+        <g transform="translate(50,58)" fill="#c9a96e">
+          <!-- Handle -->
+          <path d="M0-18C-7-18-12-13-12-8C-12-4-9 0-6 1L6 1C9 0 12-4 12-8C12-13 7-18 0-18ZM0-14C5-14 8-11 8-8C8-5 5-2 0-2C-5-2-8-5-8-8C-8-11-5-14 0-14Z" fill="#c9a96e"/>
+          <!-- Body -->
+          <ellipse cx="0" cy="8" rx="10" ry="12" fill="#a08440"/>
+          <ellipse cx="0" cy="8" rx="10" ry="12" stroke="#c9a96e" stroke-width="1.5" fill="none"/>
+          <!-- Weight label -->
+          <text x="0" y="13" text-anchor="middle" font-family="'Playfair Display',serif" font-weight="700" font-size="11" fill="#c9a96e">GYM</text>
         </g>
-        <!-- Dumbbell in hands -->
-        <g fill="#c9a96e" stroke="#c9a96e" stroke-width="0.5">
-          <!-- Left weight plate -->
-          <rect x="19" y="62" width="6" height="10" rx="2" fill="#a08440"/>
-          <!-- Right weight plate -->
-          <rect x="75" y="62" width="6" height="10" rx="2" fill="#a08440"/>
-          <!-- Bar -->
-          <rect x="25" y="65.5" width="50" height="3" rx="1.5" fill="#c9a96e"/>
-          <!-- Inner plates -->
-          <rect x="27" y="63.5" width="4" height="7" rx="1" fill="#a08440"/>
-          <rect x="69" y="63.5" width="4" height="7" rx="1" fill="#a08440"/>
-        </g>
-        <!-- Core / lower torso -->
-        <path d="M40 50C40 55 42 60 44 63L50 65L56 63C58 60 60 55 60 50" fill="#c9a96e"/>
+        <!-- Bottom ribbon: EST. 2025 -->
+        <text x="50" y="96" text-anchor="middle" font-family="'Inter',sans-serif" font-weight="500" font-size="7" fill="#a08440" letter-spacing="2.5">EST. 2025</text>
+        <!-- Decorative lines -->
+        <line x1="20" y1="36" x2="80" y2="36" stroke="#a08440" stroke-width="0.5"/>
+        <line x1="25" y1="88" x2="75" y2="88" stroke="#a08440" stroke-width="0.5"/>
+        <!-- Corner stars -->
+        <text x="20" y="35" text-anchor="middle" font-size="5" fill="#c9a96e">&#9670;</text>
+        <text x="80" y="35" text-anchor="middle" font-size="5" fill="#c9a96e">&#9670;</text>
       </svg>
     </div>
     <div class="logo-text">
       <div class="logo-name">Old Town Gym</div>
       <div class="logo-tagline">Private Fitness &middot; Ostrava Centrum</div>
     </div>
+  </div>
+
+  <!-- Running gorilla mascot -->
+  <div class="gorilla" id="gorilla">
+    <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Body -->
+      <ellipse cx="28" cy="30" rx="14" ry="16" fill="#c9a96e"/>
+      <!-- Head -->
+      <circle cx="42" cy="18" r="10" fill="#c9a96e"/>
+      <!-- Brow -->
+      <path d="M34 14h16v3c0 1-3 2-8 2s-8-1-8-2z" fill="#a08440"/>
+      <!-- Eyes -->
+      <circle cx="39" cy="17" r="1.5" fill="#0a0a0a"/>
+      <circle cx="47" cy="17" r="1.5" fill="#0a0a0a"/>
+      <circle cx="39.5" cy="16.8" r="0.5" fill="#fff"/>
+      <circle cx="47.5" cy="16.8" r="0.5" fill="#fff"/>
+      <!-- Muzzle -->
+      <ellipse cx="43" cy="22" rx="4" ry="2.5" fill="#a08440"/>
+      <circle cx="41.5" cy="21.5" r="0.7" fill="#0a0a0a"/>
+      <circle cx="44.5" cy="21.5" r="0.7" fill="#0a0a0a"/>
+      <!-- Mouth - grin -->
+      <path d="M40 24c1.5 1 4.5 1 6 0" stroke="#0a0a0a" stroke-width="0.8" fill="none"/>
+      <!-- Arms - running pose -->
+      <g id="gorilla-arms">
+        <path d="M20 24c-4 2-8 8-6 12c1 2 3 1 4-1c2-3 4-6 5-8" fill="#c9a96e" stroke="#a08440" stroke-width="0.5"/>
+        <path d="M36 34c4 4 6 10 4 14c-1 2-3 1-3-1c-1-3-2-7-3-10" fill="#c9a96e" stroke="#a08440" stroke-width="0.5"/>
+      </g>
+      <!-- Legs - running -->
+      <g id="gorilla-legs">
+        <path d="M22 42c-2 4-4 10-2 14c1 2 3 2 4 0c1-3 1-7 0-10" fill="#c9a96e" stroke="#a08440" stroke-width="0.5"/>
+        <path d="M32 44c2 4 5 8 4 13c0 2-2 2-3 0c-2-3-3-7-3-10" fill="#c9a96e" stroke="#a08440" stroke-width="0.5"/>
+      </g>
+      <!-- Chest muscles hint -->
+      <path d="M22 26c3-1 8-1 12 2" stroke="#a08440" stroke-width="0.7" fill="none"/>
+      <!-- Tiny kettlebell in hand -->
+      <circle cx="12" cy="35" r="4" fill="#a08440" stroke="#c9a96e" stroke-width="0.8"/>
+      <path d="M10 31c0-2 1-3 2-3s2 1 2 3" stroke="#c9a96e" stroke-width="1" fill="none"/>
+    </svg>
   </div>
   <div class="tabs">
     <button class="tab" onclick="switchTab('plan')">Business Pl&aacute;n</button>
@@ -926,6 +948,71 @@ function switchTab(name) {
   if (name === 'pricing') setTimeout(buildMixChart, 50);
   if (name === 'cfo') updateCFO();
 }
+
+// === GORILLA MASCOT ===
+(function() {
+  const g = document.getElementById('gorilla');
+  if (!g) return;
+  let posX = -80;
+  let targetX = 0;
+  let speed = 0;
+  let state = 'idle'; // idle, running, pushup, waiting
+  let stateTimer = 0;
+  let direction = 1; // 1 = right, -1 = left
+  const W = () => window.innerWidth;
+
+  function pickAction() {
+    const r = Math.random();
+    if (r < 0.5) {
+      // Run across
+      state = 'running';
+      targetX = Math.random() * (W() - 80);
+      speed = 2 + Math.random() * 3;
+      direction = targetX > posX ? 1 : -1;
+      g.classList.add('running');
+      g.classList.remove('pushup');
+      g.classList.toggle('flipped', direction < 0);
+    } else if (r < 0.75) {
+      // Pushups
+      state = 'pushup';
+      stateTimer = 60 + Math.floor(Math.random() * 120);
+      g.classList.remove('running');
+      g.classList.add('pushup');
+    } else {
+      // Wait
+      state = 'waiting';
+      stateTimer = 120 + Math.floor(Math.random() * 300);
+      g.classList.remove('running', 'pushup');
+    }
+  }
+
+  function tick() {
+    if (state === 'running') {
+      posX += speed * direction;
+      g.style.left = posX + 'px';
+      if ((direction > 0 && posX >= targetX) || (direction < 0 && posX <= targetX)) {
+        g.classList.remove('running');
+        state = 'waiting';
+        stateTimer = 60 + Math.floor(Math.random() * 200);
+      }
+    } else if (state === 'pushup' || state === 'waiting') {
+      stateTimer--;
+      if (stateTimer <= 0) pickAction();
+    } else {
+      pickAction();
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // Start off-screen, wait then enter
+  g.style.left = '-80px';
+  g.style.bottom = '10px';
+  setTimeout(() => {
+    state = 'idle';
+    pickAction();
+    tick();
+  }, 3000);
+})();
 
 // === INIT ===
 renderTiers();
