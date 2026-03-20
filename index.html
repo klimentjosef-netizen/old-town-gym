@@ -606,25 +606,29 @@ function saveToCloud() {
   // Debounce: wait 500ms after last change before saving
   clearTimeout(_saveTimeout);
   _saveTimeout = setTimeout(() => {
-    const payload = {
-      tiers: tiers,
-      extras: {
-        rentalH: document.getElementById('rental-h').value,
-        rentalP: document.getElementById('rental-price').value,
-        dropinQ: document.getElementById('dropin').value,
-        dropinP: document.getElementById('dropin-price').value,
-      },
-      cfo: typeof cfoData !== 'undefined' ? cfoData : {},
-      savedAt: new Date().toISOString(),
-    };
-    // Save to localStorage as cache
-    localStorage.setItem('gym-cloud-cache', JSON.stringify(payload));
-    // Save to cloud
-    fetch(BLOB_URL, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    }).catch(() => {});
+    try {
+      const payload = {
+        tiers: tiers,
+        extras: {
+          rentalH: document.getElementById('rental-h').value,
+          rentalP: document.getElementById('rental-price').value,
+          dropinQ: document.getElementById('dropin').value,
+          dropinP: document.getElementById('dropin-price').value,
+        },
+        cfo: cfoData || {},
+        savedAt: new Date().toISOString(),
+      };
+      // Save to localStorage as cache
+      localStorage.setItem('gym-cloud-cache', JSON.stringify(payload));
+      // Save to cloud
+      fetch(BLOB_URL, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      }).then(() => {
+        console.log('Cloud save OK', new Date().toLocaleTimeString());
+      }).catch(e => { console.warn('Cloud save failed:', e); });
+    } catch(e) { console.warn('saveToCloud error:', e); }
   }, 500);
 }
 
